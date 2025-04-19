@@ -5,8 +5,8 @@
   programs.home-manager.enable = true;
 
   # Basic info
-  home.username = "yourusername";
-  home.homeDirectory = "/home/yourusername";
+  home.username = "chamalgomes";
+  home.homeDirectory = "/home/chamalgomes";
   
   # Python & Data Science Tools
   home.packages = with pkgs; [
