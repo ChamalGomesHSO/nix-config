@@ -98,6 +98,7 @@ home-manager generations
 - [Nix Documentation](https://nixos.org/manual/nix/stable/)
 - [Home Manager Documentation](https://nix-community.github.io/home-manager/)
 - [Home Manager Options](https://nix-community.github.io/home-manager/options.html)
+- [Nix Packages](https://search.nixos.org/packages)
 
 ## License
 
