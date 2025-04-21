@@ -5,16 +5,17 @@
     # Python ecosystem
     python312
     uv
+    ruff
 
     # Docker ecosystem
     docker
     docker-compose
     
     # CI/CD tools
-    gh  # GitHub CLI
+    gh
     
     # Development tools
-    just  # Keep Just for simpler tasks
+    just
     git
     curl
     jq
