@@ -5,20 +5,15 @@
   programs.home-manager.enable = true;
 
   # Basic info
-  home.username = "chamalgomes";
-  home.homeDirectory = "/home/chamalgomes";
+  home.username = "azureuser";
+  home.homeDirectory = "/home/azureuser";
   
   # Python & Data Science Tools
-  home.packages = with pkgs; [
+  home.packages = with pkgs; [    
     # Python ecosystem
     python312
     python312Packages.uv
-    python312Packages.ipython
-    python312Packages.jupyter
-    python312Packages.jupyterlab
-    python312Packages.numpy
-    python312Packages.pandas
-    
+
     # Docker ecosystem
     docker
     docker-compose
@@ -29,7 +24,6 @@
     # Development tools
     just  # Keep Just for simpler tasks
     git
-    vim
     curl
     jq
   ];
@@ -100,37 +94,10 @@
   };
   
   # Shell configuration (Bash)
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      ll = "ls -la";
-      update = "home-manager switch";
-      docker-clean = "docker system prune -af";
-    };
-    initExtra = ''
-      # Python virtual environment helper
-      venv() {
-        if [ -d venv ]; then
-          source venv/bin/activate
-        else
-          python -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-        fi
-      }
-      
-      # GitHub Actions local runner
-      run-action() {
-        act -j "$1"
-      }
-    '';
-  };
-  
-  # Shell configuration
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
     oh-my-zsh = {
       enable = true;
       plugins = ["git" "python" "docker" "github"];
