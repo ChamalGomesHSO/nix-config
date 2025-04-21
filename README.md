@@ -74,6 +74,7 @@ Link your home.nix configuration file:
 ```bash
 # If you're in the directory with your home.nix file:
 ln -sf "$(pwd)/home.nix" ~/.config/home-manager/home.nix
+ln -sf "$(pwd)/modules" ~/.config/home-manager/modules
 ```
 
 ### 5. Apply Your Configuration
