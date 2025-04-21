@@ -2,14 +2,6 @@
 
 This document walks you through setting up Nix and Home Manager to manage your system configuration.
 
-## Prerequisites
-
-- Linux or macOS operating system
-- Bash shell
-- Internet connection
-- Administrator/sudo access (for Nix installation)
-
-## Manual Installation Steps
 
 ### 1. Install Nix Package Manager
 
