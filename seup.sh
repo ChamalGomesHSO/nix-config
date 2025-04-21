@@ -1,10 +1,9 @@
 #!/bin/bash
-# setup.sh - Quick setup for Nix configuration
 
 set -e  # Exit on error
 
 # Check if Nix is installed
-if ! command -v nix-env &> /dev/null; then
+if ! command nix --version &> /dev/null; then
     echo "Installing Nix..."
     sh <(curl -L https://nixos.org/nix/install) --daemon
     
@@ -19,6 +18,8 @@ if ! nix-channel --list | grep -q home-manager; then
     echo "Adding Home Manager channel..."
     nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
     nix-channel --update
+else
+    echo "Nix home manager already installed."
 fi
 
 # Check if Home Manager is installed
@@ -29,18 +30,14 @@ if ! command -v home-manager &> /dev/null; then
 fi
 
 # Ensure config directory exists
-mkdir -p ~/.config/nixpkgs
+mkdir -p ~/.config/home-manager
 
 # Link configuration
 echo "Linking configuration..."
-ln -sf "$(pwd)/home.nix" ~/.config/nixpkgs/home.nix
-
-# Update username and home directory
-sed -i "s/home.username = \".*\"/home.username = \"$(whoami)\"/" home.nix
-sed -i "s|home.homeDirectory = \".*\"|home.homeDirectory = \"$HOME\"|" home.nix
+ln -sf "$(pwd)/home.nix" ~/.config/home-manager/home.nix
 
 # Apply configuration
 echo "Applying configuration..."
-# home-manager switch
+home-manager switch -b backup
 
 echo "Setup complete! Your Nix configuration has been applied."
