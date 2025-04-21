@@ -4,7 +4,7 @@
   home.packages = with pkgs; [
     # Python ecosystem
     python312
-    python312Packages.uv
+    uv
 
     # Docker ecosystem
     docker
