@@ -1,6 +1,6 @@
 # Nix Home Manager Setup Guide
 
-This document walks you through setting up Nix and Home Manager to manage your system configuration.
+This document walks you through setting up Nix and Home Manager to manage your system configuration. This is catered towards Azure ML compute instances with it's inherent volume configuration challenges. Still WIP
 
 
 ### 1. Install Nix Package Manager
