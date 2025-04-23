@@ -19,7 +19,7 @@
         inherit pkgs;
 
         modules = [
-          ./home.nix
+          ./home-azure.nix
         ];
       };
     };
