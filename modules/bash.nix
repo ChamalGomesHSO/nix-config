@@ -25,7 +25,11 @@
       ll = "ls -alF";
       la = "ls -A";
       l = "ls -CF";
-      
+
+      #Development aliases
+      docker-rebuild = "docker-compose down -v && docker-compose up --build";
+      gdp = "git checkout dev && git pull";
+
       # Alert alias for long running commands
       alert = "notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e 's/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//')\"";
     };
@@ -83,7 +87,7 @@
       fi
       
       # Check if venv exists and create it if it doesn't
-      VENV_PATH="/home/azureuser/ml-venv"
+      VENV_PATH="${toString config.home.homeDirectory}/ds-venv"
       if [ ! -d "$VENV_PATH" ]; then
         echo "Virtual environment not found. Creating one at $VENV_PATH..."
         ${pkgs.python3}/bin/python3 -m venv "$VENV_PATH"
