@@ -35,6 +35,9 @@
     };
     
     initExtra = ''
+      # Set default directory when opening new bash sessions
+      cd "${config.home.homeDirectory}/cloudfiles/code/Users"
+
       # Set up a colored prompt based on terminal capabilities
       case "$TERM" in
           xterm-color|*-256color) color_prompt=yes;;
@@ -48,10 +51,13 @@
           fi
       fi
       
+      # Load Git prompt support for PS1 branch display
+      . ${pkgs.git}/share/git/contrib/completion/git-prompt.sh
+
       if [ "$color_prompt" = yes ]; then
-          PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+          PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[33m\]$(__git_ps1 " (%s)")\[\033[00m\]\$ '
       else
-          PS1='\u@\h:\w\$ '
+          PS1='\u@\h:\w$(__git_ps1 " (%s)")\$ '
       fi
       unset color_prompt force_color_prompt
       
