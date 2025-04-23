@@ -14,8 +14,23 @@
       # "globstar"
     ];
 
-    # Your bash prompt with color support
-    promptInit = ''
+    shellAliases = {
+      # Color support for various commands
+      ls = "ls --color=auto";
+      grep = "grep --color=auto";
+      fgrep = "fgrep --color=auto";
+      egrep = "egrep --color=auto";
+      
+      # ls aliases
+      ll = "ls -alF";
+      la = "ls -A";
+      l = "ls -CF";
+      
+      # Alert alias for long running commands
+      alert = "notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e 's/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//')\"";
+    };
+    
+    initExtra = ''
       # Set up a colored prompt based on terminal capabilities
       case "$TERM" in
           xterm-color|*-256color) color_prompt=yes;;
@@ -44,25 +59,7 @@
       *)
           ;;
       esac
-    '';
-    
-    shellAliases = {
-      # Color support for various commands
-      ls = "ls --color=auto";
-      grep = "grep --color=auto";
-      fgrep = "fgrep --color=auto";
-      egrep = "egrep --color=auto";
-      
-      # ls aliases
-      ll = "ls -alF";
-      la = "ls -A";
-      l = "ls -CF";
-      
-      # Alert alias for long running commands
-      alert = "notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e 's/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//')\"";
-    };
-    
-    initExtra = ''
+
       # make less more friendly for non-text input files
       [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
       
@@ -70,9 +67,6 @@
       if [ -z "''${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
           debian_chroot=$(cat /etc/debian_chroot)
       fi
-      
-      # Colored GCC warnings and errors (uncomment if needed)
-      # export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
       
       # Load bash aliases if present
       if [ -f ~/.bash_aliases ]; then
@@ -89,7 +83,7 @@
       fi
       
       # Check if venv exists and create it if it doesn't
-      VENV_PATH="/users/azureuser/.venv"
+      VENV_PATH="/home/azureuser/ml-venv"
       if [ ! -d "$VENV_PATH" ]; then
         echo "Virtual environment not found. Creating one at $VENV_PATH..."
         ${pkgs.python3}/bin/python3 -m venv "$VENV_PATH"
