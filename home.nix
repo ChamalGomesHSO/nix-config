@@ -7,6 +7,7 @@
     ./modules/vim.nix
     ./modules/zsh.nix
     ./modules/docker.nix
+    ./modules/bash.nix
   ];
 
   # Let Home Manager manage itself
