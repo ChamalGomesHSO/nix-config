@@ -11,9 +11,9 @@
     ./modules/docker.nix
   ];
 
-  my.home.azureUserDir = "/home/azureuser/cloudfiles/code/Users/Chamal.Homes";
+  my.home.azureUserDir = "/home/azureuser/cloudfiles/code/Users/Chamal.Gomes";
   my.home.trustedGitDirs = [
-    "/home/azureuser/cloudfiles/code/Users/Chamal.Homes"
+    "/home/azureuser/cloudfiles/code/Users/Chamal.Gomes/*"
   ];
 
   # Let Home Manager manage itself
