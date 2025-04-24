@@ -36,7 +36,7 @@
     
     initExtra = ''
       # Set default directory when opening new bash sessions
-      cd "${config.home.homeDirectory}/cloudfiles/code/Users"
+      cd "${config.my.home.azureUserDir}"
 
       # Set up a colored prompt based on terminal capabilities
       case "$TERM" in
