@@ -29,6 +29,7 @@
       #Development aliases
       docker-rebuild = "docker-compose down -v && docker-compose up --build";
       gdp = "git checkout dev && git pull";
+      go="cd /home/azureuser/repo && code .";
 
       # Alert alias for long running commands
       alert = "notify-send --urgency=low -i \"$([ $? = 0 ] && echo terminal || echo error)\" \"$(history|tail -n1|sed -e 's/^\\s*[0-9]\\+\\s*//;s/[;&|]\\s*alert$//')\"";
@@ -37,6 +38,9 @@
     initExtra = ''
       # Set default directory when opening new bash sessions
       cd "${config.my.home.azureUserDir}"
+
+      #Create default repos dir within compute instance
+      mkdir -p /home/azureuser/repos 
 
       # Set up a colored prompt based on terminal capabilities
       case "$TERM" in
