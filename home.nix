@@ -14,6 +14,7 @@
   my.home.azureUserDir = "/home/azureuser/cloudfiles/code/Users/Chamal.Gomes";
   my.home.trustedGitDirs = [
     "/home/azureuser/cloudfiles/code/Users/Chamal.Gomes/*"
+    "/mnt/batch/tasks/shared/LS_root/mounts/clusters/cg1/code/Users/Chamal.Gomes/nix-config"
   ];
 
   # Let Home Manager manage itself
