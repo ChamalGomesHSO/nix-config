@@ -1,9 +1,5 @@
 { config, pkgs, ... }:
 
-# Access the variable from `config.my.home.trustedGitDirs`
-let
-  gitSafeDirs = config.my.home.trustedGitDirs or [];
-in
 {
   programs.git = {
     enable = true;
@@ -11,7 +7,7 @@ in
     userEmail = "chamalgomes166@gmail.com";
 
     extraConfig = {
-      safe.directory = gitSafeDirs;
+      safe.directory = config.my.home.trustedGitDirs;
       core = {
         editor = "vim";
         whitespace = "fix,-indent-with-non-tab,trailing-space,cr-at-eol";

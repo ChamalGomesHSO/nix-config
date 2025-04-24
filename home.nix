@@ -1,19 +1,19 @@
 { config, pkgs, lib, ... }:
 
-let
-  azureUserDir = "/home/azureuser/cloudfiles/code/Users/Chamal.Homes";
-  trustedGitDirs = [
-    "${azureUserDir}"
-  ];
-in
 {
   imports = [
+    ./modules/options.nix
     ./modules/packages.nix
-    (import ./modules/git.nix { inherit trustedGitDirs; })
-    (import ./modules/bash.nix { inherit azureUserDir; })
+    ./modules/git.nix
+    ./modules/bash.nix
     ./modules/vim.nix
     ./modules/zsh.nix
     ./modules/docker.nix
+  ];
+
+  my.home.azureUserDir = "/home/azureuser/cloudfiles/code/Users/Chamal.Homes";
+  my.home.trustedGitDirs = [
+    "/home/azureuser/cloudfiles/code/Users/Chamal.Homes"
   ];
 
   # Let Home Manager manage itself
