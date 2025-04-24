@@ -13,7 +13,7 @@
 
   my.home.azureUserDir = "/home/azureuser/cloudfiles/code/Users/Chamal.Gomes";
   my.home.trustedGitDirs = [
-        "${builtins.exec ["readlink" "-f" "/home/azureuser/cloudfiles/code/Users/Chamal.Gomes"]}/*";
+        "/home/azureuser/cloudfiles/code/Users/Chamal.Gomes/*"
   ];
 
   # Let Home Manager manage itself
