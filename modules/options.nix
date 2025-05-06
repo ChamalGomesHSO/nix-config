@@ -6,10 +6,4 @@
     default = [];
     description = "List of directories Git should treat as safe.";
   };
-
-  options.my.home.azureUserDir = lib.mkOption {
-    type = lib.types.str;
-    default = "/home/azureuser";
-    description = "Azure user directory for custom scripts or paths.";
-  };
 }

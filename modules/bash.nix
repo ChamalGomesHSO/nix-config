@@ -36,11 +36,11 @@
     };
     
     initExtra = ''
-      # Set default directory when opening new bash sessions
-      cd "${config.my.home.azureUserDir}"
-
       #Create default repos dir within compute instance
-      mkdir -p /home/azureuser/repos 
+      mkdir -p "${config.home.homeDirectory}/repos"
+      
+      # Set default directory when opening new bash sessions
+      cd "${config.home.homeDirectory}/repos"
 
       # Set up a colored prompt based on terminal capabilities
       case "$TERM" in
@@ -95,30 +95,8 @@
           . /etc/bash_completion
         fi
       fi
-      
-      # Check if venv exists and create it if it doesn't
-      VENV_PATH="${toString config.home.homeDirectory}/ds-venv"
-      if [ ! -d "$VENV_PATH" ]; then
-        echo "Virtual environment not found. Creating one at $VENV_PATH..."
-        ${pkgs.python3}/bin/python3 -m venv "$VENV_PATH"
-        # Just create the basic venv without installing packages
-        echo "Virtual environment created. You can manage it with uv later."
-      fi
-      
-      # Activate the venv
-      if [ -f "$VENV_PATH/bin/activate" ]; then
-        source "$VENV_PATH/bin/activate"
-        echo "Python virtual environment activated: $VENV_PATH"
-      else
-        echo "Warning: Could not activate Python virtual environment at $VENV_PATH"
-      fi
     '';
   };
-  
-  # Make sure Python 3 is available for creating the venv
-  home.packages = with pkgs; [
-    python3
-  ];
   
   # If you need dircolors support
   programs.dircolors = {
