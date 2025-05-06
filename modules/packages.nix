@@ -11,6 +11,7 @@
     
     # CI/CD tools
     gh
+    actionlint
     
     # Development tools
     just

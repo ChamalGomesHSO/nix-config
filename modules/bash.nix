@@ -29,7 +29,6 @@
       #Development aliases
       docker-rebuild = "docker-compose down -v && docker-compose up --build";
       gdp = "git checkout dev && git pull";
-      go="cd /home/azureuser/repos && code .";
       ven = "source .venv/bin/activate";
       dven = "deactivate";
 
