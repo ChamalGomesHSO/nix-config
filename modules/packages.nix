@@ -3,9 +3,7 @@
 {
   home.packages = with pkgs; [
     # Python ecosystem
-    python312
     uv
-    ruff
 
     # Docker ecosystem
     docker
