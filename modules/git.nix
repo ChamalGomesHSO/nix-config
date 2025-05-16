@@ -15,6 +15,7 @@
       color.ui = "auto";
       pull.rebase = false;
       push.default = "simple";
+      push.autoSetupRemote = true;
     };
 
     aliases = {
