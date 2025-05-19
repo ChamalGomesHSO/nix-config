@@ -10,6 +10,11 @@
       shiftwidth = 4;
       tabstop = 4;
     };
+
+    plugins = with pkgs.vimPlugins; [
+      vim-just
+    ];
+
     extraConfig = ''
       " Basic Settings
       set encoding=utf-8
