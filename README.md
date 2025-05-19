@@ -87,6 +87,14 @@ Select previous generation link and run respective activation script
 home-manager generations 
 ```
 
+### 7. Pruning Garbage 
+
+Prune nix system garbage
+
+```bash
+nix-collect-garbage --delete-older-than 10d
+```
+
 ## Troubleshooting
 
 - If you encounter permission issues during Nix installation, make sure you have sudo access
