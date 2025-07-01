@@ -3,7 +3,7 @@
 {
   programs.bash = {
     enable = true;
-    historyControl = [ "ignoreboth" ];
+    historyControl = [ "ignoredups" "ignorespace" ];
     historySize = 1000;
     historyFileSize = 2000;
     
