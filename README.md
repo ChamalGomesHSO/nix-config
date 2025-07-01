@@ -3,13 +3,16 @@
 This document walks you through setting up Nix and Home Manager to manage your system configuration. This is catered towards Azure ML compute instances with it's inherent volume configuration challenges. Still WIP
 
 
-### 1. Install Nix Package Manager
+### 1. Fork and Clone this Repo
 
-First, check if Nix is already installed on your system:
+Clone from your forked repo:
 
 ```bash
-nix --version
+cd repos
+git clone <repo>
 ```
+
+### 2. Install Nix Package Manager
 
 If Nix is not installed, run the official installer:
 
@@ -17,79 +20,45 @@ If Nix is not installed, run the official installer:
 sh <(curl -L https://nixos.org/nix/install) --daemon
 ```
 
-After installation, source the Nix profile to use it in your current session:
+Verify installation:
 
 ```bash
-. ~/.nix-profile/etc/profile.d/nix.sh
+nix --version
 ```
 
-### 2. Add Home Manager Channel
+### 3. Build and Activate Your Configuration
 
-Check if the Home Manager channel is already added:
+This builds the Home Manager configuration for the current system:
 
 ```bash
-nix-channel --list | grep home-manager
+nix build .#homeConfigurations.azureuser.activationPackage
 ```
 
-If it's not listed, add the Home Manager channel:
+Activate it:
 
 ```bash
-nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-nix-channel --update
+./result/activate
 ```
 
-### 3. Install Home Manager
-
-Check if Home Manager is installed:
+### 4. Apply Your Changes 
+To reapply changes after editing your config:
 
 ```bash
-home-manager --version
+nix build .#homeConfigurations.azureuser.activationPackage
+./result/activate
 ```
 
-If it's not installed, set up the NIX_PATH environment variable and install Home Manager:
+### 5. Roll Back if Needed
+
+This lists previous generations. You can activate an earlier one using its path.
 
 ```bash
-export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
-nix-shell '<home-manager>' -A install
+home-manager generations
 ```
 
-### 4. Configure Home Manager
+### 6. Pruning Garbage 
 
-Create the configuration directory if it doesn't exist:
-
-```bash
-mkdir -p ~/.config/home-manager
-```
-
-Link your home.nix configuration file:
-
-```bash
-# If you're in the directory with your home.nix file:
-ln -sf "$(pwd)/home.nix" ~/.config/home-manager/home.nix
-ln -sf "$(pwd)/modules" ~/.config/home-manager/modules
-```
-
-### 5. Apply Your Configuration
-
-Apply your configuration using Home Manager:
-
-```bash
-home-manager switch -b backup
-```
-
-The `-b backup` flag creates a backup of your previous configuration.
-
-### 6. Rollback to previous generation
-
-Select previous generation link and run respective activation script
-
-```bash
-home-manager generations 
-```
-
-### 7. Pruning Garbage 
-
-Prune nix system garbage
+Prune nix system garbage:
 
 ```bash
 nix-collect-garbage --delete-older-than 10d
