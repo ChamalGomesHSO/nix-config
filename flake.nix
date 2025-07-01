@@ -16,9 +16,13 @@
           system = "x86_64-linux";
           config.allowUnfree = true;
         };
-        modules = [ ./home.nix ];
-        # home.username = "azureuser";
-        # home.homeDirectory = "/home/azureuser";
+        modules = [
+          ./home.nix
+          {
+            home.username = "azureuser";
+            home.homeDirectory = "/home/azureuser";
+          }
+        ];
       };
 
       # Macbook (M Series)
