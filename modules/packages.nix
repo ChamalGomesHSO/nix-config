@@ -2,9 +2,6 @@
 
 {
   home.packages = with pkgs; [
-    # Python ecosystem
-    uv
-
     # Docker ecosystem
     docker
     docker-compose
