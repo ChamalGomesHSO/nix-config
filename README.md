@@ -10,6 +10,7 @@ Clone from your forked repo:
 ```bash
 cd repos
 git clone <repo>
+cd nix-config
 ```
 
 ### 2. Install Nix Package Manager
@@ -26,7 +27,7 @@ Verify installation:
 nix --version
 ```
 
-### 3. 
+### 3. Enable Experimental Features
 
 Run the following to enable system-wide nix commands:
 
@@ -40,16 +41,10 @@ Specify your userName and userEmail in nix-config/modules/git.nix
 
 ### 5. Build and Activate Your Configuration
 
-Re-evaluate the config and switch to the latest generation using the home-manager CLI from the flake
+Build and activate your flake-based Home Manager configurations:
 
 ```bash
 nix run github:nix-community/home-manager -- switch --flake .#azureuser -b backup
-```
-
-Build and activate your Home Manager configurations:
-
-```bash
-nix run .#homeConfigurations.azureuser.activationPackage
 ```
 
 At this point, you should now be setup with basic Nix! Read on to learn more about working with Nix. 
@@ -59,8 +54,7 @@ At this point, you should now be setup with basic Nix! Read on to learn more abo
 To reapply changes after editing your config: 
 
 ```bash
-nix build .#homeConfigurations.azureuser.activationPackage
-./result/activate
+nix run .#homeConfigurations.azureuser.activationPackage
 ```
 
 ### 7. Roll Back if Needed
@@ -82,8 +76,8 @@ nix-collect-garbage --delete-older-than 10d
 ## Troubleshooting
 
 - If you encounter permission issues during Nix installation, make sure you have sudo access
-- You may have to restart or create a new terminal after installations or activations to 
-    ensure changes take place
+- You may have to restart or create a new shell after installations or activations to 
+    ensure changes take effect
 - For configuration errors, check the syntax in your home.nix file
 
 ## Additional Resources
