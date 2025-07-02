@@ -1,6 +1,6 @@
 # Nix Home Manager Setup Guide
 
-This document walks you through setting up Nix and Home Manager to manage your system configuration. This is catered towards Azure ML compute instances with it's inherent volume configuration challenges. Still WIP
+This document walks you through setting up Nix and Home Manager with Flakes to manage your system configuration. This is catered towards Azure ML compute instances with its inherent volume configuration challenges. Still WIP
 
 
 ### 1. Fork and Clone this Repo
@@ -14,7 +14,7 @@ git clone <repo>
 
 ### 2. Install Nix Package Manager
 
-If Nix is not installed, run the official installer:
+If Nix is not installed, run the official installer (yes to all defaults):
 
 ```bash
 sh <(curl -L https://nixos.org/nix/install) --daemon
@@ -26,37 +26,52 @@ Verify installation:
 nix --version
 ```
 
-### 3. Build and Activate Your Configuration
+### 3. 
 
-This builds the Home Manager configuration for the current system:
+Run the following to enable system-wide nix commands:
+
+```bash
+echo "experimental-features = nix-command flakes" | sudo tee /etc/nix/nix.conf
+```
+
+### 4. Update the Configurations
+
+Specify your userName and userEmail in nix-config/modules/git.nix
+
+### 5. Build and Activate Your Configuration
+
+Re-evaluate the config and switch to the latest generation using the home-manager CLI from the flake
+
+```bash
+nix run github:nix-community/home-manager -- switch --flake .#azureuser -b backup
+```
+
+Build and activate your Home Manager configurations:
+
+```bash
+nix run .#homeConfigurations.azureuser.activationPackage
+```
+
+At this point, you should now be setup with basic Nix! Read on to learn more about working with Nix. 
+
+### 6. Apply Your Configuration Changes 
+
+To reapply changes after editing your config: 
 
 ```bash
 nix build .#homeConfigurations.azureuser.activationPackage
-```
-
-Activate it:
-
-```bash
 ./result/activate
 ```
 
-### 4. Apply Your Changes 
-To reapply changes after editing your config:
-
-```bash
-nix build .#homeConfigurations.azureuser.activationPackage
-./result/activate
-```
-
-### 5. Roll Back if Needed
+### 7. Roll Back if Needed
 
 This lists previous generations. You can activate an earlier one using its path.
 
 ```bash
-home-manager generations
+nix run github:nix-community/home-manager -- generations
 ```
 
-### 6. Pruning Garbage 
+### 8. Pruning Garbage 
 
 Prune nix system garbage:
 
@@ -67,7 +82,8 @@ nix-collect-garbage --delete-older-than 10d
 ## Troubleshooting
 
 - If you encounter permission issues during Nix installation, make sure you have sudo access
-- If Home Manager fails to install, verify that your Nix channels are properly updated
+- You may have to restart or create a new terminal after installations or activations to 
+    ensure changes take place
 - For configuration errors, check the syntax in your home.nix file
 
 ## Additional Resources
