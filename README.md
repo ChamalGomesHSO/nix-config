@@ -55,6 +55,7 @@ At this point, you should now be setup with basic Nix! Read on to learn more abo
 To reapply changes after editing your config: 
 
 ```bash
+nix flake update
 nix run .#homeConfigurations.azureuser.activationPackage
 ```
 
